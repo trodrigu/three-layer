@@ -18,3 +18,4 @@ extra-deps:
   - servant-proto-lens-0.1.0.3
   - tomland-1.0.0
   - typerep-map-0.3.2
+  - hsc2hs-0.68.4
