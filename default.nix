@@ -20,7 +20,7 @@ let
     # the haskell.nix functionality itself as an overlay.
     haskellNix.nixpkgsArgs;
 in
-haskellNix.stackProject' {
+pkgs.haskell-nix.project {
   src = pkgs.haskell-nix.haskellLib.cleanGit {
     name = "three-layer";
     src = ./.;
@@ -28,29 +28,11 @@ haskellNix.stackProject' {
 
   modules = [
     {
-      # learn about nonReinstallablePkgs they seem useful for caching
-      # nonReinstallablePkgs =
-      #    [ "rts" "ghc-heap" "ghc-prim" "integer-gmp" "integer-simple" "base"
-      #      "deepseq" "array" "ghc-boot-th" "pretty" "template-haskell"
-      #      "ghc-boot"
-      #      "ghc" "Cabal" "Win32" "array" "binary" "bytestring" "containers"
-      #      "directory" "filepath" "ghc-boot" "ghc-compact" "ghc-prim"
-      #      "ghci" "haskeline"
-      #      "hpc"
-      #      "mtl" "parsec" "process" "text" "time" "transformers"
-      #      "unix" "xhtml"
-      #      "stm" "terminfo"
-      #    ];
-
+      packages = {
+        three-layer.components.library.build-tools = [ pkgs.protobuf ];
+        three-layer.components.exes.three-layer-exe.build-tools = [ pkgs.protobuf ];
+        three-layer.components.exes.three-layer-test.build-tools = [ pkgs.protobuf ];
+      };
     }
-  ]
+  ];
 }
-#in pkgs.haskell-nix.project {
-#  # 'cleanGit' cleans a source directory based on the files known by git
-#  src = pkgs.haskell-nix.haskellLib.cleanGit {
-#    name = "three-layer";
-#    src = ./.;
-#  };
-#  # Specify the GHC version to use.
-#  # compiler-nix-name = "ghc8102"; # Not required for `stack.yaml` based projects.
-#}
