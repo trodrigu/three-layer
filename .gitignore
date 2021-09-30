@@ -52,3 +52,9 @@ TAGS
 
 # other
 .DS_Store
+
+# tmp files
+.tmp
+tmp
+result
+logfile
