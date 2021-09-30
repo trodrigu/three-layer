@@ -26,6 +26,7 @@ pkgs.haskell-nix.project {
     src = ./.;
   };
 
+  # protobuf build tools are added here for the protoc executable
   modules = [
     {
       packages = {
